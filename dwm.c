@@ -1382,6 +1382,12 @@ restack(Monitor *m)
 void
 run(void)
 {
+	system("pactl set-source-volume @DEFAULT_SOURCE@ 40%");
+	system("pactl set-sink-volume @DEFAULT_SINK@ 30%");
+	system("xinput set-prop \"Glorious Model O\" \"libinput Accel Speed\" -0.6");
+	system("hsetroot -full /home/beanie/Documents/holy_stallman.png");
+	system("dwmblocks &");
+	system("rmmod pcspkr");
 	XEvent ev;
 	/* main event loop */
 	XSync(dpy, False);
