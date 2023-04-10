@@ -79,8 +79,12 @@ static const Key keys[] = {
 	{      0,                 XF86XK_MonBrightnessUp, spawn,          SHCMD("/usr/bin/brightnessctl set 5%+; dwm_brightness.sh") },
 	{ ShiftMask,            XF86XK_MonBrightnessDown, spawn,          SHCMD("/usr/bin/brightnessctl set 1%-; dwm_brightness.sh") },
 	{ ShiftMask,              XF86XK_MonBrightnessUp, spawn,          SHCMD("/usr/bin/brightnessctl set 1%+; dwm_brightness.sh") },
-	{ MODKEY,                      XK_s,              spawn,          SHCMD("/usr/bin/scrot -s -fz '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
-	{ MODKEY|ShiftMask,            XK_s,              spawn,          SHCMD("/usr/bin/scrot -z '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
+	// The snipping icon below PrtSc couldn't be found anywhere in
+	// /usr/include/X11/{keysymdef.h,keysym.h,XF86keysym.h}.
+	// {XK_Select,XF86XK_Copy,XF86XK_Cut,XF86XK_Select} - none worked.
+	// So for now, Shift + PrtSc = select area for screenshot.
+	{ ShiftMask,                   XK_Print,          spawn,          SHCMD("/usr/bin/scrot -s -fz '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
+	{      0,                      XK_Print,          spawn,          SHCMD("/usr/bin/scrot -z '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
 	{ MODKEY,                      XK_p,              spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,            XK_Return,         spawn,          {.v = termcmd } },
 	{ MODKEY,                      XK_b,              togglebar,      {0} },
