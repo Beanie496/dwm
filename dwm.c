@@ -1382,11 +1382,6 @@ restack(Monitor *m)
 void
 run(void)
 {
-	system("pactl set-source-volume @DEFAULT_SOURCE@ 40%");
-	system("pactl set-sink-volume @DEFAULT_SINK@ 30%");
-	system("hsetroot -cover /home/beanie/Documents/tree\\!.jpg");
-	system("dwmblocks &");
-	system("rmmod pcspkr");
 	XEvent ev;
 	/* main event loop */
 	XSync(dpy, False);
