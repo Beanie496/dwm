@@ -11,8 +11,8 @@ X11INC = /usr/X11R6/include
 X11LIB = /usr/X11R6/lib
 
 # Xinerama, comment if you don't want it
-XINERAMALIBS  = -lXinerama
-XINERAMAFLAGS = -DXINERAMA
+#XINERAMALIBS  = -lXinerama
+#XINERAMAFLAGS = -DXINERAMA
 
 # freetype
 FREETYPELIBS = -lfontconfig -lXft
@@ -28,7 +28,7 @@ LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
 # flags
 CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 #CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
-CFLAGS   = -std=c99 -pedantic -Wall -Wno-deprecated-declarations -Os ${INCS} ${CPPFLAGS}
+CFLAGS   = -std=c99 -pedantic -Wall -Wno-deprecated-declarations -march=native -O2 ${INCS} ${CPPFLAGS}
 LDFLAGS  = ${LIBS}
 
 # Solaris
