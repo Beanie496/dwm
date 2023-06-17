@@ -30,8 +30,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ NULL,       NULL,       NULL,       0,            False,       -1 },
 };
 
 /* layout(s) */
@@ -65,16 +64,16 @@ static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
 	/* modifier                 key                function        argument */
-	{      0,                       XF86XK_AudioMute, spawn,          SHCMD("/usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle; kill -36 $(pidof dwmblocks)") },
-	{      0,                XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -36 $(pidof dwmblocks)") },
-	{      0,                XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -36 $(pidof dwmblocks)") },
-	{ ShiftMask,             XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -1%; kill -36 $(pidof dwmblocks)") },
-	{ ShiftMask,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ +1%; kill -36 $(pidof dwmblocks)") },
-	{ ControlMask,           XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/pactl set-source-volume @DEFAULT_SOURCE@ -5%; kill -35 $(pidof dwmblocks)") },
-	{ ControlMask,           XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/pactl set-source-volume @DEFAULT_SOURCE@ +5%; kill -35 $(pidof dwmblocks)") },
-	{ ControlMask|ShiftMask, XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/pactl set-source-volume @DEFAULT_SOURCE@ -1%; kill -35 $(pidof dwmblocks)") },
-	{ ControlMask|ShiftMask, XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/pactl set-source-volume @DEFAULT_SOURCE@ +1%; kill -35 $(pidof dwmblocks)") },
-	{      0,                    XF86XK_AudioMicMute, spawn,          SHCMD("/usr/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle; kill -35 $(pidof dwmblocks)") },
+	{      0,                       XF86XK_AudioMute, spawn,          SHCMD("/usr/bin/wpctl set-mute @DEFAULT_SINK@ toggle; kill -36 $(pidof dwmblocks)") },
+	{      0,                XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SINK@ 5%-; kill -36 $(pidof dwmblocks)") },
+	{      0,                XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SINK@ 5%+; kill -36 $(pidof dwmblocks)") },
+	{ ShiftMask,             XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SINK@ 1%-; kill -36 $(pidof dwmblocks)") },
+	{ ShiftMask,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SINK@ 1%+; kill -36 $(pidof dwmblocks)") },
+	{ ControlMask,           XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SOURCE@ 5%-; kill -35 $(pidof dwmblocks)") },
+	{ ControlMask,           XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SOURCE@ 5%+; kill -35 $(pidof dwmblocks)") },
+	{ ControlMask|ShiftMask, XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SOURCE@ 1%-; kill -35 $(pidof dwmblocks)") },
+	{ ControlMask|ShiftMask, XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SOURCE@ 1%+; kill -35 $(pidof dwmblocks)") },
+	{      0,                    XF86XK_AudioMicMute, spawn,          SHCMD("/usr/bin/wpctl set-mute @DEFAULT_SOURCE@ toggle; kill -35 $(pidof dwmblocks)") },
 	{      0,               XF86XK_MonBrightnessDown, spawn,          SHCMD("/usr/bin/brightnessctl set 5%-; dwm_brightness.sh") },
 	{      0,                 XF86XK_MonBrightnessUp, spawn,          SHCMD("/usr/bin/brightnessctl set 5%+; dwm_brightness.sh") },
 	{ ShiftMask,            XF86XK_MonBrightnessDown, spawn,          SHCMD("/usr/bin/brightnessctl set 1%-; dwm_brightness.sh") },
@@ -82,8 +81,8 @@ static const Key keys[] = {
 	// The snipping icon below PrtSc couldn't be found anywhere in
 	// /usr/include/X11/{keysymdef.h,keysym.h,XF86keysym.h}.
 	// {XK_Select,XF86XK_Copy,XF86XK_Cut,XF86XK_Select} - none worked.
-	// So for now, Shift + PrtSc = select area for screenshot.
-	{ ShiftMask,                   XK_Print,          spawn,          SHCMD("/usr/bin/scrot -s -fz '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
+	// So for now, Control + PrtSc = select area for screenshot.
+	{ ControlMask,                 XK_Print,          spawn,          SHCMD("/usr/bin/scrot -s -fz '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
 	{      0,                      XK_Print,          spawn,          SHCMD("/usr/bin/scrot -z '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
 	{ MODKEY,                      XK_p,              spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,            XK_Return,         spawn,          {.v = termcmd } },
@@ -92,8 +91,8 @@ static const Key keys[] = {
 	{ MODKEY,                      XK_k,              focusstack,     {.i = -1 } },
 	{ MODKEY,                      XK_i,              incnmaster,     {.i = +1 } },
 	{ MODKEY,                      XK_d,              incnmaster,     {.i = -1 } },
-	{ MODKEY,                      XK_h,              setmfact,       {.f = -0.03125} }, // 2>>6
-	{ MODKEY,                      XK_l,              setmfact,       {.f = +0.03125} }, // ditto
+	{ MODKEY,                      XK_h,              setmfact,       {.f = -(1.0 / 32)} },
+	{ MODKEY,                      XK_l,              setmfact,       {.f = +(1.0 / 32)} },
 	{ MODKEY,                      XK_Return,         zoom,           {0} },
 	{ MODKEY,                      XK_Tab,            view,           {0} },
 	{ MODKEY|ShiftMask,            XK_c,              killclient,     {0} },
