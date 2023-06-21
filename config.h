@@ -63,7 +63,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
-	/* modifier                 key                function        argument */
+	/* modifier                    key                function        argument */
 	{      0,                       XF86XK_AudioMute, spawn,          SHCMD("/usr/bin/wpctl set-mute @DEFAULT_SINK@ toggle; kill -36 $(pidof dwmblocks)") },
 	{      0,                XF86XK_AudioLowerVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SINK@ 5%-; kill -36 $(pidof dwmblocks)") },
 	{      0,                XF86XK_AudioRaiseVolume, spawn,          SHCMD("/usr/bin/wpctl set-volume @DEFAULT_SINK@ 5%+; kill -36 $(pidof dwmblocks)") },
