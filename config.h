@@ -34,7 +34,8 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.625; /* factor of master area size [0.05..0.95] */
+// 19 / 32 == 0.59375. It's the largest width where the slave area is 80 chars wide.
+static const float mfact     = 0.59375; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
