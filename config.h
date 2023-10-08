@@ -83,12 +83,8 @@ static const Key keys[] = {
 	// /usr/include/X11/{keysymdef.h,keysym.h,XF86keysym.h}.
 	// {XK_Select,XF86XK_Copy,XF86XK_Cut,XF86XK_Select} - none worked.
 	// So for now, Control + PrtSc = select area for screenshot.
-	{ ControlMask,                 XK_Print,          spawn,          SHCMD("/usr/bin/scrot -s -fz '%Y-%m-%d_%H:%M:%S.png' "
-	                                                                        "-e 'xclip -sel clip $f'"
-	                                                                        "-e 'mv $f ~/Pictures/Screenshots/' ") },
-	{      0,                      XK_Print,          spawn,          SHCMD("/usr/bin/scrot -z '%Y-%m-%d_%H:%M:%S.png' "
-	                                                                        "-e 'xclip -sel clip $f'"
-	                                                                        "-e 'mv $f ~/Pictures/Screenshots/' ") },
+	{ ControlMask,                 XK_Print,          spawn,          SHCMD("/usr/bin/scrot -s -fz '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
+	{      0,                      XK_Print,          spawn,          SHCMD("/usr/bin/scrot -z '%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/Screenshots/'") },
 	{ MODKEY,                      XK_p,              spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,            XK_Return,         spawn,          {.v = termcmd } },
 	{ MODKEY,                      XK_b,              togglebar,      {0} },
