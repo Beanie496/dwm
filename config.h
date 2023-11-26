@@ -34,8 +34,9 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-// 19 / 32 == 0.59375. It's the largest width where the slave area is 80 chars wide.
-static const float mfact     = 0.59375; /* factor of master area size [0.05..0.95] */
+// This allows the text in Vim in the master area to sit flush against the left
+// screen. It also gives a little over 80 chars for both master and slave.
+static const float mfact     = 65 / 128; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
@@ -92,8 +93,10 @@ static const Key keys[] = {
 	{ MODKEY,                      XK_k,              focusstack,     {.i = -1 } },
 	{ MODKEY,                      XK_i,              incnmaster,     {.i = +1 } },
 	{ MODKEY,                      XK_d,              incnmaster,     {.i = -1 } },
-	{ MODKEY,                      XK_h,              setmfact,       {.f = -(1.0 / 32)} },
-	{ MODKEY,                      XK_l,              setmfact,       {.f = +(1.0 / 32)} },
+	{ MODKEY,                      XK_h,              setmfact,       {.f = -(1.0 / 64)} },
+	{ MODKEY,                      XK_l,              setmfact,       {.f = +(1.0 / 64)} },
+	{ MODKEY|ShiftMask,            XK_h,              setmfact,       {.f = -(1.0 / 128)} },
+	{ MODKEY|ShiftMask,            XK_l,              setmfact,       {.f = +(1.0 / 128)} },
 	{ MODKEY,                      XK_Return,         zoom,           {0} },
 	{ MODKEY,                      XK_Tab,            view,           {0} },
 	{ MODKEY|ShiftMask,            XK_c,              killclient,     {0} },
