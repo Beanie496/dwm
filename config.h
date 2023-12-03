@@ -36,7 +36,7 @@ static const Rule rules[] = {
 /* layout(s) */
 // This allows the text in Vim in the master area to sit flush against the left
 // screen. It also gives a little over 80 chars for both master and slave.
-static const float mfact     = 65 / 128; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 65.0 / 128.0; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
