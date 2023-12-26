@@ -29,8 +29,8 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ NULL,       NULL,       NULL,       0,            False,       -1 },
+	/* class        instance  title  tags mask  isfloating  monitor  borderpx */
+	{ "hl2_linux",  NULL,     NULL,  0,         False,      -1,      0},
 };
 
 /* layout(s) */
