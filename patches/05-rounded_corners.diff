@@ -1,0 +1,129 @@
+diff --git a/config.def.h b/config.def.h
+index d3aa677..52a9cb6 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -4,6 +4,7 @@
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int gappx     = 5;        /* gaps between windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
++static const int cornerradius       = 3;        /* corner radius of windows */
+ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+ static const int vertpad            = 10;       /* vertical padding of bar */
+diff --git a/config.mk b/config.mk
+index 8efca9a..71c91b1 100644
+--- a/config.mk
++++ b/config.mk
+@@ -23,7 +23,7 @@ FREETYPEINC = /usr/include/freetype2
+ 
+ # includes and libs
+ INCS = -I${X11INC} -I${FREETYPEINC}
+-LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
++LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS} -lXext
+ 
+ # flags
+ CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+diff --git a/dwm.c b/dwm.c
+index 2a3b5e8..ca3f84d 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -39,6 +39,7 @@
+ #ifdef XINERAMA
+ #include <X11/extensions/Xinerama.h>
+ #endif /* XINERAMA */
++#include <X11/extensions/shape.h>
+ #include <X11/Xft/Xft.h>
+ 
+ #include "drw.h"
+@@ -236,6 +237,7 @@ static int xerror(Display *dpy, XErrorEvent *ee);
+ static int xerrordummy(Display *dpy, XErrorEvent *ee);
+ static int xerrorstart(Display *dpy, XErrorEvent *ee);
+ static void zoom(const Arg *arg);
++static void drawroundedcorners(Client *c);
+ 
+ /* variables */
+ static const char broken[] = "broken";
+@@ -1101,6 +1103,9 @@ manage(Window w, XWindowAttributes *wa)
+ 		unfocus(selmon->sel, 0);
+ 	c->mon->sel = c;
+ 	arrange(c->mon);
++
++	drawroundedcorners(c);
++
+ 	XMapWindow(dpy, c->win);
+ 	focus(NULL);
+ }
+@@ -1314,6 +1319,55 @@ resizeclient(Client *c, int x, int y, int w, int h)
+ 	XSync(dpy, False);
+ }
+ 
++void drawroundedcorners(Client *c) {
++	// if set to zero in config.h, do not attempt to round
++	if(cornerradius < 0) return;
++
++	// NOTE: this is extremely hacky and surely could be optimized.
++	//       Any X wizards out there reading this, please pull request.
++	if (cornerradius > 0 && c && !c->isfullscreen) {
++		Window win;
++		win = c->win;
++		if(!win) return;
++
++		XWindowAttributes win_attr;
++		if(!XGetWindowAttributes(dpy, win, &win_attr)) return;
++
++		// set in config.h:
++		int dia = 2 * cornerradius;
++		int w = c->w;
++		int h = c->h;
++		if(w < dia || h < dia) return;
++
++		Pixmap mask;
++		mask = XCreatePixmap(dpy, win, w, h, 1);
++		if(!mask) return;
++
++		XGCValues xgcv;
++		GC shape_gc;
++		shape_gc = XCreateGC(dpy, mask, 0, &xgcv);
++
++		if(!shape_gc) {
++			XFreePixmap(dpy, mask);
++			free(shape_gc);
++			return;
++		}
++
++		XSetForeground(dpy, shape_gc, 0);
++		XFillRectangle(dpy, mask, shape_gc, 0, 0, w, h);
++		XSetForeground(dpy, shape_gc, 1);
++		XFillArc(dpy, mask, shape_gc, 0, 0, dia, dia, 0, 23040);
++		XFillArc(dpy, mask, shape_gc, w-dia-1, 0, dia, dia, 0, 23040);
++		XFillArc(dpy, mask, shape_gc, 0, h-dia-1, dia, dia, 0, 23040);
++		XFillArc(dpy, mask, shape_gc, w-dia-1, h-dia-1, dia, dia, 0, 23040);
++		XFillRectangle(dpy, mask, shape_gc, cornerradius, 0, w-dia, h);
++		XFillRectangle(dpy, mask, shape_gc, 0, cornerradius, w, h-dia);
++		XShapeCombineMask(dpy, win, ShapeBounding, 0, 0, mask, ShapeSet);
++		XFreePixmap(dpy, mask);
++		XFreeGC(dpy, shape_gc);
++	}
++}
++
+ void
+ resizemouse(const Arg *arg)
+ {
+@@ -1358,6 +1412,9 @@ resizemouse(const Arg *arg)
+ 			}
+ 			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
+ 				resize(c, c->x, c->y, nw, nh, 1);
++
++			drawroundedcorners(c);
++
+ 			break;
+ 		}
+ 	} while (ev.type != ButtonRelease);
+@@ -1369,6 +1426,7 @@ resizemouse(const Arg *arg)
+ 		selmon = m;
+ 		focus(NULL);
+ 	}
++	drawroundedcorners(c);
+ }
+ 
+ void
