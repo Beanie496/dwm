@@ -18,7 +18,7 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_lavender[]    = "#ccbfd9";
-static const char col_purple[]      = "#442464";
+static const char col_purple[]      = "#271737";
 static const char col_borderbar[]   = "#ccbfd9";
 static const char *colors[][3]      = {
 	/*               fg            bg            border   */
@@ -91,8 +91,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,       XK_equal,                  setgaps,        {.i = 0  } },
 	{ MODKEY,                 XK_Tab,                    view,           {0} },
 	{ MODKEY,                 XK_q,                      quit,           {0} },
-	{ MODKEY,                 XK_e,                      spawn,          SHCMD("thunderbird") },
 	{ MODKEY,                 XK_t,                      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,       XK_t,                      spawn,          SHCMD("thunderbird") },
 	{ MODKEY,                 XK_i,                      incnmaster,     {.i = +1 } },
 	{ MODKEY,                 XK_o,                      spawn,          SHCMD("obsidian") },
 	{ MODKEY|ShiftMask,       XK_o,                      spawn,          SHCMD("libreoffice") },
@@ -100,12 +100,13 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,       XK_p,                      spawn,          SHCMD("sh $BROWSER") },
 	{ MODKEY,                 XK_Return,                 spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,       XK_Return,                 zoom,           {0} },
+	{ MODKEY,                 XK_a,                      spawn,          SHCMD("audacity") },
 	{ MODKEY,                 XK_s,                      spawn,          SHCMD("spotify") },
 	{ MODKEY|ShiftMask,       XK_s,                      spawn,          SHCMD("steam") },
 	{ MODKEY,                 XK_d,                      incnmaster,     {.i = -1 } },
 	{ MODKEY,                 XK_f,                      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|ShiftMask,       XK_f,                      togglefullscr,  {0} },
-	{ MODKEY,                 XK_g,                      spawn,          SHCMD("steam") },
+	{ MODKEY,                 XK_g,                      spawn,          SHCMD("gimp") },
 	{ MODKEY,                 XK_h,                      setmfact,       {.f = -(1.0 / 64)} },
 	{ MODKEY|ShiftMask,       XK_h,                      setmfact,       {.f = -(1.0 / 128)} },
 	{ MODKEY,                 XK_j,                      focusstack,     {.i = +1 } },
