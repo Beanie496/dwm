@@ -98,6 +98,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,       XK_o,                      spawn,           SHCMD("libreoffice") },
 	{ MODKEY,                 XK_p,                      spawn,           {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,       XK_p,                      spawn,           SHCMD("sh $BROWSER") },
+	{ MODKEY|ControlMask,     XK_p,                      spawn,           SHCMD("sh prismlauncher") },
 	{ MODKEY,                 XK_Return,                 spawn,           {.v = termcmd } },
 	{ MODKEY|ShiftMask,       XK_Return,                 zoom,            {0} },
 	{ MODKEY,                 XK_a,                      spawn,           SHCMD("audacity") },
