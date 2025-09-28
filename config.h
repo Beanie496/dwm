@@ -103,7 +103,7 @@ static const Key keys[] = {
 	{ MODKEY,                 XK_l,                      setmfact,        {.f = +(1.0 / 64)} },
 	{ MODKEY|ShiftMask,       XK_l,                      setmfact,        {.f = +(1.0 / 128)} },
 	{ MODKEY,                 XK_z,                      spawn,           SHCMD("zathura") },
-	{ MODKEY,                 XK_c,                      killclient,      {0} },
+	{ MODKEY|ShiftMask,       XK_c,                      killclient,      {0} },
 	{ MODKEY,                 XK_b,                      togglebar,       {0} },
 	{ MODKEY,                 XK_m,                      setlayout,       {.v = &layouts[2]} },
 	{ MODKEY,                 XK_comma,                  focusmon,        {.i = -1 } },
