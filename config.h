@@ -96,6 +96,7 @@ static const Key keys[] = {
 	{ MODKEY,                 XK_i,                      incnmaster,      {.i = +1 } },
 	{ MODKEY,                 XK_o,                      spawn,           SHCMD("obsidian") },
 	{ MODKEY|ShiftMask,       XK_o,                      spawn,           SHCMD("libreoffice") },
+	{ MODKEY|ControlMask,     XK_o,                      spawn,           SHCMD("obs") },
 	{ MODKEY,                 XK_p,                      spawn,           {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,       XK_p,                      spawn,           SHCMD("sh $BROWSER") },
 	{ MODKEY|ControlMask,     XK_p,                      spawn,           SHCMD("sh prismlauncher") },
