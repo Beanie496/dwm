@@ -69,10 +69,12 @@ static const Key keys[] = {
 	{ ControlMask,            XF86XK_AudioRaiseVolume,   spawn,           SHCMD("wpctl set-volume @DEFAULT_SOURCE@ 5%+; kill -35 $(pidof dwmblocks)") },
 	{ ControlMask|ShiftMask,  XF86XK_AudioRaiseVolume,   spawn,           SHCMD("wpctl set-volume @DEFAULT_SOURCE@ 1%+; kill -35 $(pidof dwmblocks)") },
 	{      0,                 XF86XK_AudioMicMute,       spawn,           SHCMD("wpctl set-mute @DEFAULT_SOURCE@ toggle; kill -35 $(pidof dwmblocks)") },
-	{      0,                 XF86XK_MonBrightnessDown,  spawn,           SHCMD("brightnessctl set 5%-; dwm_brightness") },
-	{      0,                 XF86XK_MonBrightnessUp,    spawn,           SHCMD("brightnessctl set 5%+; dwm_brightness") },
-	{ ShiftMask,              XF86XK_MonBrightnessDown,  spawn,           SHCMD("brightnessctl set 1%-; dwm_brightness") },
-	{ ShiftMask,              XF86XK_MonBrightnessUp,    spawn,           SHCMD("brightnessctl set 1%+; dwm_brightness") },
+	{      0,                 XF86XK_MonBrightnessDown,  spawn,           SHCMD("brightnessctl set 5%-;  dwm_brightness") },
+	{      0,                 XF86XK_MonBrightnessUp,    spawn,           SHCMD("brightnessctl set 5%+;  dwm_brightness") },
+	{ ShiftMask,              XF86XK_MonBrightnessDown,  spawn,           SHCMD("brightnessctl set 1%-;  dwm_brightness") },
+	{ ShiftMask,              XF86XK_MonBrightnessUp,    spawn,           SHCMD("brightnessctl set 1%+;  dwm_brightness") },
+	{ ControlMask,            XF86XK_MonBrightnessDown,  spawn,           SHCMD("brightnessctl set 0%;   dwm_brightness") },
+	{ ControlMask,            XF86XK_MonBrightnessUp,    spawn,           SHCMD("brightnessctl set 100%; dwm_brightness") },
 	// The snipping icon below PrtSc couldn't be found anywhere in
 	// /usr/include/X11/{keysymdef.h,keysym.h,XF86keysym.h}.
 	// {XK_Select,XF86XK_Copy,XF86XK_Cut,XF86XK_Select} - none worked.
